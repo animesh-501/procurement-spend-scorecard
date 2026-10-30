@@ -1,0 +1,96 @@
+Data quality checks
+   {'lines': 10324, 'vendors': 73, 'items': 184, 'spend_musd': 1627.6}
+   {'duplicate_ids': 0}
+   {'value_mismatches': 0}
+   {'zero_value_lines': 18}
+   {'freight_not_numeric': 4126}
+
+Vendor concentration (direct)
+  rank                                                vendor  lines        spend  spend_share  cumulative_share
+    1                                         Orgenics, Ltd    754 147703351.01        0.272             0.272
+    2                              Aurobindo Pharma Limited    668  91383710.67        0.169             0.441
+    3 MYLAN LABORATORIES LTD (FORMERLY MATRIX LABORATORIES)    317  72213665.51        0.133             0.574
+    4                                   HETERO LABS LIMITED    277  42881567.05        0.079             0.653
+    5                                         CIPLA LIMITED    175  39658694.60        0.073             0.726
+    6       ABBVIE LOGISTICS (FORMERLY ABBOTT LOGISTICS BV)    347  29448061.22        0.054             0.781
+    7                               STRIDES ARCOLAB LIMITED     93  22485465.06        0.041             0.822
+    8                                  Trinity Biotech, Plc    356  20769341.25        0.038             0.860
+    9                                    S. BUYS WHOLESALER    715   9891003.64        0.018             0.879
+   10                            Standard Diagnostics, Inc.     98   8887045.90        0.016             0.895
+
+Top items by price variance
+                                                                                  item  lines  vendors  benchmarked_spend  excess_usd  excess_share  excess_usd_same_terms
+                             Lopinavir/Ritonavir 200/50mg [Aluvia], tablets, 120 Tabs    250        6        50017034.72  8257989.63         0.165            2663238.280
+                                       HIV 1/2, Determine Complete HIV Kit, 100 Tests    566        8       136667029.70  4646387.00         0.034            4717036.500
+                                                    Efavirenz 600mg, tablets, 30 Tabs    752       10       136155071.80  4442562.50         0.033            3362200.315
+   Efavirenz/Lamivudine/Tenofovir Disoproxil Fumarate 600/300/300mg, tablets, 30 Tabs    283        5       230080482.14  2788161.58         0.012            2766744.920
+Efavirenz/Emtricitabine/Tenofovir Disoproxil Fumarate 600/200/300mg, tablets, 30 Tabs    123        6        98730900.38  2474449.82         0.025            2254466.460
+                     Lamivudine/Nevirapine/Zidovudine 150/200/300mg, tablets, 60 Tabs    580        6       283758591.94  1829111.54         0.006            1700438.480
+                 Lamivudine/Tenofovir Disoproxil Fumarate 300/300mg, tablets, 30 Tabs    301        6        65768346.98  1619871.97         0.025            1322666.540
+                                    Lamivudine/Zidovudine 150/300mg, tablets, 60 Tabs    593        7       127008881.35  1296897.74         0.010            1273706.380
+                                                   Nevirapine 200mg, tablets, 60 Tabs    619       10        53422412.03  1177002.68         0.022             420599.645
+                                                   Lamivudine 150mg, tablets, 60 Tabs    378        9        25161063.01   977451.01         0.039             229069.520
+
+Supplier scorecard
+                                                            vendor  lines  items        spend  on_time_rate  avg_days_late_when_late  median_lead_time_days  freight_pct_of_value  price_index  share_of_spend_benchmarked  excess_usd         tier
+                                                    Orgenics, Ltd    754     11 147703351.01         0.870                   12.582                   91.0                 0.071        1.019                       0.990 4817788.180 Fix delivery
+                                         Aurobindo Pharma Limited    668     43  91383710.67         0.859                   35.564                  123.0                 0.062        0.986                       0.948 1325936.600 Fix delivery
+            MYLAN LABORATORIES LTD (FORMERLY MATRIX LABORATORIES)    317     22  72213665.51         0.994                    3.000                  127.0                 0.049        0.894                       0.982 1032252.000    Preferred
+                                              HETERO LABS LIMITED    277     17  42881567.05         0.993                    4.500                  128.0                 0.083        0.964                       0.993  553778.350    Preferred
+                                                    CIPLA LIMITED    175     26  39658694.60         0.869                   40.913                  133.5                 0.052        0.995                       0.974  749895.320 Fix delivery
+                  ABBVIE LOGISTICS (FORMERLY ABBOTT LOGISTICS BV)    347      7  29448061.22         0.988                   27.750                  117.0                 0.076        1.306                       0.994 7643644.660    Fix price
+                                          STRIDES ARCOLAB LIMITED     93     10  22485465.06         0.957                   23.500                  116.0                 0.052        1.023                       1.000  733226.365    Preferred
+                                             Trinity Biotech, Plc    356      3  20769341.25         0.997                   43.000                   78.0                 0.117        1.001                       0.995   28640.000    Preferred
+                                               S. BUYS WHOLESALER    715     60   9891003.64         0.985                   23.364                   19.0                 0.327        1.498                       0.922 3175837.955    Fix price
+                                       Standard Diagnostics, Inc.     98      7   8887045.90         0.959                   10.750                   77.0                 0.149        0.997                       0.964       0.000    Preferred
+MERCK SHARP & DOHME IDEA GMBH (FORMALLY MERCK SHARP & DOHME B.V.)     68      5   8776716.72         0.985                   29.000                  132.0                 0.009        0.991                       0.857    8316.000    Preferred
+                                 CHEMBIO DIAGNOSTIC SYSTEMS, INC.    109      3   8520709.60         0.991                   24.000                   76.0                 0.084        1.003                       0.992   29579.500    Preferred
+                    SHANGHAI KEHUA BIOENGINEERING CO.,LTD.  (KHB)     70      2   7325764.50         0.971                   49.000                   69.0                 0.325        1.000                       0.866       0.000    Preferred
+                                       EMCURE PHARMACEUTICALS LTD     41      6   5756840.40         0.951                   28.500                  224.0                 0.043        1.025                       0.963  151707.680    Preferred
+                                                 ASPEN PHARMACARE     41      5   3164725.01         0.976                   36.000                   68.0                 0.038        1.010                       0.445   34338.210    Preferred
+                                   GLAXOSMITHKLINE EXPORT LIMITED     20      3   3145376.72         1.000                      NaN                  205.0                 0.041        1.001                       0.749   45880.000    Preferred
+                                             Abbott GmbH & Co. KG     21      1   2342400.00         0.952                   48.000                   34.5                 0.037        1.000                       1.000       0.000    Preferred
+                                             BRISTOL-MYERS SQUIBB     67      8   1971067.13         1.000                      NaN                   81.0                 0.055        1.000                       0.765     265.200    Preferred
+                                      Hoffmann-La Roche ltd Basel     23      4   1675900.15         1.000                      NaN                  104.0                 0.051        1.196                       0.370  101423.780    Fix price
+                                        Orasure Technologies Inc.     56      4   1581202.50         0.982                   28.000                   58.0                 0.144        0.999                       0.267    1875.000    Preferred
+                                    BIO-RAD LABORATORIES (FRANCE)     28      3   1493378.50         0.857                   15.000                   73.0                 0.151        1.000                       0.501       0.000 Fix delivery
+                                               MICRO LABS LIMITED     35      5   1457654.62         1.000                      NaN                  145.0                 0.173        0.862                       1.000       0.000    Preferred
+                                                  PHARMACY DIRECT    326     25    873335.66         1.000                      NaN                    0.0                   NaN        2.476                       0.937  495595.175    Fix price
+                                          JSI R&T INSTITUTE, INC.     38     22    250689.59         0.974                   95.000                   14.0                   NaN        1.288                       0.782   43790.600    Fix price
+
+Tiers
+         tier  vendors        spend   excess_usd  spend_share
+   Preferred       15 211279541.97  2619858.305        0.396
+Fix delivery        4 280239134.78  6893620.100        0.525
+   Fix price        5  42138990.26 11460292.170        0.079
+
+Freight by shipment mode
+ shipment_mode  lines        spend  lines_with_freight  freight_pct_of_value  freight_usd_per_kg  on_time_rate
+          Air   6113 627285937.45                4115                 0.085               5.272         0.904
+        Truck   2830 587382369.10                1166                 0.032               1.594         0.839
+  Air Charter    650 246372231.15                 424                 0.050               2.745         0.885
+        Ocean    371 126177943.79                 282                 0.034               1.851         0.825
+          NaN    360  40365975.80                 211                 0.048               3.608         0.989
+
+Summary
+ lines                                      10324
+total_spend_usd                    1627584457.29
+years                                  2006-2015
+direct_spend_usd                    542212022.34
+direct_vendors                                72
+top5_vendor_share_of_direct              0.72636
+benchmarked_spend_usd              1602303519.99
+benchmarked_share_of_spend              0.984467
+excess_vs_item_median_usd            35227878.79
+excess_vs_item_median_pct               0.021986
+excess_same_terms_usd                24310726.59
+excess_same_terms_pct                   0.015172
+scorecard_vendors                             24
+scorecard_share_of_direct_spend         0.984223
+top3_vendors_share_of_direct            0.574131
+top3_vendors_on_time_min                0.859281
+top3_vendors_on_time_max                0.993691
+direct_on_time_rate                     0.947358
+warehouse_on_time_rate                   0.82846
+
+Outputs written to /home/claude/projects/procurement-spend-scorecard/outputs and /home/claude/projects/procurement-spend-scorecard/charts
