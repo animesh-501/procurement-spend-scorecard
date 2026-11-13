@@ -2,6 +2,8 @@
 
 **Where is money leaking, and which suppliers need attention?** This project analyzes $1.63B of purchases (10,324 purchase lines, 72 vendors, 2006–2015). It benchmarks every price against what the same item cost from other purchases, and scores each major supplier on price and delivery.
 
+![Project summary chart](assets/social-preview.png)
+
 `SQL (DuckDB)` `Python` `pandas` `matplotlib`
 
 ---
