@@ -63,7 +63,7 @@ def main():
     pd.Series(summary).to_csv(OUT_DIR / "summary.csv", header=["value"])
 
     charts.make_all(t, card, items)
-    print(f"\nOutputs written to {OUT_DIR} and {CHART_DIR}")
+    print("\nOutputs written to outputs and charts")
 
 
 if __name__ == "__main__":

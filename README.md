@@ -8,7 +8,7 @@
 
 ---
 
-## Result
+## Summary
 
 | | |
 |---|---|
@@ -22,7 +22,7 @@
 
 **Recommendations**
 1. **Renegotiate the five "Fix price" vendors first.** AbbVie Logistics (31% above benchmark, $7.6M excess) and S. Buys Wholesaler (50% above, $3.2M) are the big two. Their delivery is fine, so price is the only conversation.
-2. **Put the "Fix delivery" vendors on a performance plan, not a price plan.** Orgenics, Aurobindo and Cipla price at or near the median, but 13–14% of their lines arrive late. Aurobindo and Cipla average 36 and 41 days late when they miss. With 52% of scorecard spend between them, this is the biggest service risk.
+2. **Put the "Fix delivery" vendors on a delivery performance plan.** Orgenics, Aurobindo and Cipla price at or near the median, but 13–14% of their lines arrive late. Aurobindo and Cipla average 36 and 41 days late when they miss. With 52% of scorecard spend between them, this is the biggest service risk.
 3. **Use Mylan's terms as the reference when negotiating.** It's the only large supplier that is both cheaper than benchmark and reliably on time.
 4. **Check the delivery terms before chasing every price gap.** About a third of the headline variance disappears when purchases are compared only against others under the same delivery (INCO) terms, because delivered prices include freight. The $24M figure is the defensible floor.
 
@@ -73,18 +73,18 @@ Air carries 59% of lines, and its freight costs 8.5% of goods value versus 3.2�
 - **On time** = delivered on or before the scheduled delivery date.
 - **Direct vs. warehouse:** 52% of lines ship from regional warehouses. Those are internal transfers with no external vendor, so the scorecard covers direct purchases only. Warehouse lines were on time 83% of the time versus 95% for direct, which is worth its own look.
 - Freight is a number on 60% of lines. The rest say "included in commodity cost", "invoiced separately" or point to another shipment, and are excluded from freight figures rather than guessed.
-- Price differences can also reflect order size, shelf life or urgency, which the data doesn't capture. Treat the excess as a negotiation starting point, not a guaranteed saving.
+- Price differences can also reflect order size, shelf life or urgency, which the data doesn't capture. Treat the excess as a starting point for negotiation.
 
 ---
 
-## Run it
+## How to run
 
 ```bash
 pip install -r requirements.txt
 python run_all.py
 ```
 
-The source file is included in `data/raw/` (public US government data, [source](data/README.md)). It runs in a few seconds and rebuilds every number and chart; console output is in [`outputs/run_log.txt`](outputs/run_log.txt).
+The source file is included in `data/raw/` (public US government data, [source](data/README.md)). A full run takes a few seconds; console output is in [`outputs/run_log.txt`](outputs/run_log.txt).
 
 ```
 sql/
