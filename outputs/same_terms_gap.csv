@@ -1,0 +1,4 @@
+reason,lines,excess_usd,excess_usd_same_terms,gap_usd,share_of_gap
+only one supplier on those terms (it sets its own benchmark),7504,26124642.630000006,20740570.160000008,5384072.47,0.4931755435268183
+"under 5 purchases on those terms (no benchmark, counted as zero)",593,3625349.369999999,0.0,3625349.369999999,0.3320783024349518
+2+ suppliers on the same terms,1514,5477886.790000002,3570156.4300000016,1907730.3600000008,0.17474615403822993

@@ -12,7 +12,7 @@
 
 | | |
 |---|---|
-| **Price variance** | **$24–35M** paid above each item's median price (1.5–2.2% of spend) |
+| **Price variance** | **$35–38M** paid above each item's median that year: $35M on goods price, $38M on landed cost with freight and insurance (2.2–2.3% of spend) |
 | **Where it sits** | 5 vendors with 8% of scorecard spend account for **$11.5M**, a third of it |
 | **Delivery risk** | The 2 largest suppliers (44% of direct spend) delivered only **86–87%** of lines on time |
 | **Concentration** | Top 5 vendors = **73%** of direct spend |
@@ -24,7 +24,7 @@
 1. **Renegotiate the five "Fix price" vendors first.** AbbVie Logistics (31% above benchmark, $7.6M excess) and S. Buys Wholesaler (50% above, $3.2M) are the big two. Their delivery is fine, so price is the only conversation.
 2. **Put the "Fix delivery" vendors on a delivery performance plan.** Orgenics, Aurobindo and Cipla price at or near the median, but 13–14% of their lines arrive late. Aurobindo and Cipla average 36 and 41 days late when they miss. With 52% of scorecard spend between them, this is the biggest service risk.
 3. **Use Mylan's terms as the reference when negotiating.** It's the only large supplier that is both cheaper than benchmark and reliably on time.
-4. **Check the delivery terms before chasing every price gap.** About a third of the headline variance disappears when purchases are compared only against others under the same delivery (INCO) terms, because delivered prices include freight. The $24M figure is the defensible floor.
+4. **Benchmark on landed cost.** Adding freight and insurance raises the total to $38M, and every supplier stays in the same tier. The price conversations above still hold once delivery costs are counted. An earlier benchmark that compared only purchases under the same delivery terms gave $24M. Most of that drop came from how it was built, so I've stopped using it as a floor (see [Landed cost](#landed-cost)).
 
 ---
 
@@ -34,12 +34,13 @@ Every purchase line is compared to the median pack price paid for **the same ite
 
 ![Price variance by item](charts/04_price_variance_items.png)
 
-| Benchmark | Excess paid | % of benchmarked spend |
+| Benchmark | Excess paid | % of spend compared |
 |---|---|---|
 | Item median price, same year | $35.2M | 2.2% |
-| Item median price, same year **and same delivery terms** | $24.3M | 1.5% |
+| Item median **landed cost** (goods + freight + insurance), same year | $38.0M | 2.3% |
+| Item median price, same year and same delivery terms (retired, see below) | $24.3M | 1.5% |
 
-The biggest gap between the two benchmarks is Lopinavir/Ritonavir: $8.3M versus $2.7M. Most of its variance is the difference between ex-works and delivered pricing, not overpaying.
+The biggest item is Lopinavir/Ritonavir at $8.3M on price and $8.0M landed. Purchases from AbbVie under FCA cost about $61 a pack in 2013–2015, while the landed median was $20–25 and freight added about $1 a pack. Delivery terms don't explain that gap.
 
 ---
 
@@ -59,6 +60,43 @@ The biggest gap between the two benchmarks is Lopinavir/Ritonavir: $8.3M versus 
 
 ---
 
+## Landed cost
+
+The price index compares goods prices only. Under EXW and FCA the buyer pays freight on top, while under DDP and CIP the supplier delivers and the freight is in the price. So I rebuilt every line as **goods + freight + insurance** and re-ran the same benchmark (item median, same year) on landed cost per pack.
+
+Freight and insurance add **$72.6M, 4.5% of goods value**. The source file records freight four ways, and each needs its own rule:
+
+| Freight entry | Lines | How it's handled |
+|---|---|---|
+| A number | 6,198 | Used as is |
+| "See ASN-… (ID#:n)" | 2,340 | The shipment's freight sits on line n. It's shared across every line in that shipment by line value ($10.3M) |
+| "Freight Included in Commodity Cost" | 1,442 | Zero extra. Most of these (1,123) are DDP lines, which fits the terms |
+| "Invoiced Separately", or a pointer to such a line | 344 | Estimated at the freight rate of lines with the same shipment mode and terms. This is $1.4M, 1.9% of all freight |
+
+Insurance is a number on 97% of lines; the rest use that year's median rate.
+
+![Price index vs landed index](charts/06_landed_vs_price_index.png)
+
+**No supplier changes tier.** The five "Fix price" vendors are still above 1.05 on landed cost, and they still account for $11.1M of excess.
+
+- AbbVie drops from 1.31 to 1.25 and S. Buys from 1.50 to 1.38, because the benchmark now includes the freight paid on top for other suppliers' lines.
+- Roche gets worse, going from 1.20 to 1.27. It sells FCA, so the buyer pays its freight.
+- Strides goes from 1.02 to 0.99 and Orgenics from 1.02 to 1.00. Both look cheaper on a delivered basis.
+
+Some DDP and CIP lines also carry a freight number, which could be the supplier's cost passed through. Re-running with freight set to zero on every seller-paid term gives $37.4M, and again no tier changes.
+
+**Why I retired the same-terms benchmark.** It came out $10.9M below the plain item benchmark, and the README used to put that down to freight. Splitting the gap by cause ([`outputs/same_terms_gap.csv`](outputs/same_terms_gap.csv)) shows most of it is built into the method:
+
+| Cause of the gap | Gap | Share |
+|---|---|---|
+| Only one supplier bought on those terms, so its own price became the benchmark | $5.4M | 49% |
+| Under 5 purchases on those terms, so there's no benchmark and the line counts as zero | $3.6M | 33% |
+| Two or more suppliers on the same terms (a fair comparison) | $1.9M | 17% |
+
+Landed cost handles delivery terms directly, by adding the freight each line actually carried. Vendor detail is in [`outputs/landed_cost_by_vendor.csv`](outputs/landed_cost_by_vendor.csv).
+
+---
+
 ## Freight
 
 ![Freight by mode](charts/05_freight_by_mode.png)
@@ -69,10 +107,10 @@ Air carries 59% of lines, and its freight costs 8.5% of goods value versus 3.2�
 
 ## Definitions & limits
 
-- **Spend** = line item value (goods only, excluding freight and insurance).
+- **Spend** = line item value (goods only, excluding freight and insurance). **Landed cost** = goods + freight + insurance.
 - **On time** = delivered on or before the scheduled delivery date.
 - **Direct vs. warehouse:** 52% of lines ship from regional warehouses. Those are internal transfers with no external vendor, so the scorecard covers direct purchases only. Warehouse lines were on time 83% of the time versus 95% for direct, which is worth its own look.
-- Freight is a number on 60% of lines. The rest say "included in commodity cost", "invoiced separately" or point to another shipment, and are excluded from freight figures rather than guessed.
+- Freight is a number on 60% of lines. The rest say "included in commodity cost", "invoiced separately" or point to another shipment. The freight-by-mode figures use numeric lines only. Landed cost uses the rules in [Landed cost](#landed-cost), and only "invoiced separately" lines are estimated.
 - Price differences can also reflect order size, shelf life or urgency, which the data doesn't capture. Treat the excess as a starting point for negotiation.
 
 ---
@@ -93,11 +131,14 @@ sql/
   03_spend.sql               spend by year and channel, vendor pareto
   04_price_variance.sql      item-year median benchmarks, excess per line and per item
   05_vendor_scorecard.sql    price index, on-time, lead time, freight per vendor; freight by mode
+  06_landed_cost.sql         freight and insurance per line, landed benchmark, landed index per vendor
 src/
   data.py                    loads the CSV into DuckDB, runs the SQL
   scorecard.py               tier rules
+  landed.py                  landed vs price index, benchmark comparison, same-terms gap
   charts.py
 outputs/
   summary.csv  supplier_scorecard.csv  scorecard_tiers.csv  item_opportunity.csv
   vendor_pareto.csv  spend_by_year.csv  freight_by_mode.csv  price_variance_by_line.csv
+  landed_cost_by_vendor.csv  benchmark_comparison.csv  same_terms_gap.csv
 ```

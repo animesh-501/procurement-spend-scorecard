@@ -90,8 +90,8 @@ def item_excess(items):
     fig, ax = plt.subplots(figsize=(9, 4))
     y = range(len(top))
     ax.barh([i + 0.2 for i in y], top.excess_usd / 1e6, height=0.4, color=ACCENT, label="vs. item median price")
-    ax.barh([i - 0.2 for i in y], top.excess_usd_same_terms / 1e6, height=0.4, color=LIGHT,
-            label="vs. median under same delivery terms")
+    ax.barh([i - 0.2 for i in y], top.landed_excess_usd / 1e6, height=0.4, color=LIGHT,
+            label="vs. item median landed cost (+ freight, insurance)")
     ax.set_yticks(list(y))
     ax.set_yticklabels([(", ".join(t.split(", ")[:2]) if t.startswith("HIV") else t.split(", ")[0])[:52]
                         for t in top.item], fontsize=8.5)
@@ -119,9 +119,38 @@ def freight(fm):
     _save(fig, "05_freight_by_mode.png")
 
 
-def make_all(t, card, items):
+def landed_vs_price(vl):
+    v = vl.dropna(subset=["price_index", "landed_index"]).sort_values("spend").reset_index(drop=True)
+    x_cap = 1.6
+    fig, ax = plt.subplots(figsize=(8.5, 6.2))
+    for i, r in v.iterrows():
+        p, l = min(r.price_index, x_cap), min(r.landed_index, x_cap)
+        color = TIER_COLORS[r.landed_tier]
+        ax.plot([p, l], [i, i], color=LIGHT, lw=2, zorder=1)
+        ax.scatter(p, i, s=28, facecolor="white", edgecolor=color, lw=1.4, zorder=2)
+        ax.scatter(l, i, s=34, color=color, zorder=3)
+        if r.price_index > x_cap:
+            ax.annotate(f"off scale: {r.price_index:.2f} \u2192 {r.landed_index:.2f}", (x_cap, i), xytext=(-10, -3),
+                        textcoords="offset points", fontsize=7.5, color=MUTED, ha="right")
+    ax.set_yticks(range(len(v)))
+    ax.set_yticklabels([f"{short_name(n)[:30]} ({t})" for n, t in zip(v.vendor, v.main_inco_term)], fontsize=8)
+    ax.axvline(1.0, color=LIGHT, lw=1)
+    ax.axvline(PRICE_LIMIT, color=MUTED, ls=":", lw=1)
+    ax.text(PRICE_LIMIT + 0.005, len(v) - 0.4, "fix-price line (1.05)", fontsize=7.5, color=MUTED)
+    ax.set_xlim(0.83, x_cap + 0.02)
+    ax.set_xlabel("Index vs. item median that year (open = goods price only, filled = landed cost)")
+    ax.grid(axis="y", visible=False)
+    for tier in ["Preferred", "Fix delivery", "Fix price"]:
+        ax.scatter([], [], color=TIER_COLORS[tier], s=30, label=tier)
+    ax.legend(loc="upper right", fontsize=8)
+    ax.set_title("Adding freight and insurance moves no supplier across the price line")
+    _save(fig, "06_landed_vs_price_index.png")
+
+
+def make_all(t, card, items, vl):
     spend_by_year(t["spend_by_year"])
     pareto(t["vendor_pareto"])
     quadrant(card)
     item_excess(items)
     freight(t["freight_by_mode"])
+    landed_vs_price(vl)

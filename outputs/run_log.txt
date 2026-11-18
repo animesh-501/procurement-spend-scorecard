@@ -72,25 +72,81 @@ Freight by shipment mode
         Ocean    371 126177943.79                 282                 0.034               1.851         0.825
           NaN    360  40365975.80                 211                 0.048               3.608         0.989
 
+Freight source (all lines)
+           freight_source  lines    goods_usd  freight_usd
+          In goods price   1442   82540036.0          0.0
+     Invoiced separately    344   26066853.0    1353303.0
+                Recorded   6198 1189118016.0   58473547.0
+Shared from another line   2340  329859554.0   10344302.0
+
+Benchmarks compared
+                                                            benchmark   excess_usd  spend_compared  excess_pct
+                                        Item median price, same year 3.522788e+07    1.602304e+09      0.0220
+                Item median price, same year and same delivery terms 2.431073e+07    1.602304e+09      0.0152
+                                  Item median landed cost, same year 3.795434e+07    1.672603e+09      0.0227
+Item median landed cost, same year (no freight on seller-paid terms) 3.737593e+07    1.669034e+09      0.0224
+
+Why the same-terms benchmark is lower
+                                                           reason  lines  excess_usd  excess_usd_same_terms    gap_usd  share_of_gap
+    only one supplier on those terms (it sets its own benchmark)   7504 26124642.63            20740570.16 5384072.47         0.493
+under 5 purchases on those terms (no benchmark, counted as zero)    593  3625349.37                   0.00 3625349.37         0.332
+                                  2+ suppliers on the same terms   1514  5477886.79             3570156.43 1907730.36         0.175
+
+Price index vs landed index
+                                                            vendor        spend main_inco_term  seller_pays_share  freight_insurance_pct_of_goods  freight_estimated_share  on_time_rate  price_index  landed_index  landed_index_term_rule  excess_usd  landed_excess_usd  landed_excess_usd_term_rule         tier  landed_tier
+                                                    Orgenics, Ltd 147703351.01            EXW              0.013                           0.069                    0.016         0.870        1.019         1.000                   1.000 4817788.180        3979736.701                  3980012.254 Fix delivery Fix delivery
+                                         Aurobindo Pharma Limited  91383710.67            EXW              0.627                           0.056                    0.008         0.859        0.986         0.977                   0.973 1325936.600        1645145.665                  1165779.642 Fix delivery Fix delivery
+            MYLAN LABORATORIES LTD (FORMERLY MATRIX LABORATORIES)  72213665.51            EXW              0.106                           0.045                    0.018         0.994        0.894         0.895                   0.892 1032252.000        1225153.461                   933727.582    Preferred    Preferred
+                                              HETERO LABS LIMITED  42881567.05            EXW              0.093                           0.068                    0.077         0.993        0.964         0.957                   0.953  553778.350         816133.390                   765292.956    Preferred    Preferred
+                                                    CIPLA LIMITED  39658694.60            EXW              0.579                           0.050                    0.008         0.869        0.995         1.001                   0.999  749895.320         726127.100                   647573.804 Fix delivery Fix delivery
+                  ABBVIE LOGISTICS (FORMERLY ABBOTT LOGISTICS BV)  29448061.22            FCA              0.045                           0.074                    0.081         0.988        1.306         1.253                   1.252 7643644.660        7724412.890                  7710959.770    Fix price    Fix price
+                                          STRIDES ARCOLAB LIMITED  22485465.06            EXW              0.676                           0.048                    0.016         0.957        1.023         0.985                   0.982  733226.365         202939.612                   166014.346    Preferred    Preferred
+                                             Trinity Biotech, Plc  20769341.25            EXW              0.000                           0.115                    0.019         0.997        1.001         0.971                   0.971   28640.000         227035.185                   227035.185    Preferred    Preferred
+                                               S. BUYS WHOLESALER   9891003.64            DDP              1.000                           0.003                      NaN         0.985        1.498         1.380                   1.385 3175837.955        2715438.944                  2723006.377    Fix price    Fix price
+                                       Standard Diagnostics, Inc.   8887045.90            EXW              0.000                           0.149                    0.015         0.959        0.997         1.001                   1.001       0.000         169608.552                   169608.552    Preferred    Preferred
+MERCK SHARP & DOHME IDEA GMBH (FORMALLY MERCK SHARP & DOHME B.V.)   8776716.72            CIP              1.000                           0.009                      NaN         0.985        0.991         0.991                   0.991    8316.000          22064.225                     8333.005    Preferred    Preferred
+                                 CHEMBIO DIAGNOSTIC SYSTEMS, INC.   8520709.60            EXW              0.000                           0.086                    0.014         0.991        1.003         0.991                   0.991   29579.500          63025.571                    63025.571    Preferred    Preferred
+                    SHANGHAI KEHUA BIOENGINEERING CO.,LTD.  (KHB)   7325764.50            EXW              0.000                           0.327                      NaN         0.971        1.000         1.001                   1.001       0.000          79429.895                    79429.895    Preferred    Preferred
+                                       EMCURE PHARMACEUTICALS LTD   5756840.40            EXW              0.492                           0.057                    0.442         0.951        1.025         1.014                   1.000  151707.680         201670.933                   141537.850    Preferred    Preferred
+                                                 ASPEN PHARMACARE   3164725.01            DDP              0.889                           0.021                      NaN         0.976        1.010         0.962                   0.970   34338.210          28993.034                    36170.788    Preferred    Preferred
+                                   GLAXOSMITHKLINE EXPORT LIMITED   3145376.72            DDP              0.998                           0.040                      NaN         1.000        1.001         1.001                   1.001   45880.000          43436.687                    45955.710    Preferred    Preferred
+                                             Abbott GmbH & Co. KG   2342400.00            EXW              0.000                           0.038                    0.013         0.952        1.000         1.003                   1.003       0.000          18212.213                    18212.213    Preferred    Preferred
+                                             BRISTOL-MYERS SQUIBB   1971067.13            CIP              0.993                           0.022                      NaN         1.000        1.000         0.968                   1.000     265.200           5971.780                      267.039    Preferred    Preferred
+                                      Hoffmann-La Roche ltd Basel   1675900.15            FCA              0.000                           0.053                    0.163         1.000        1.196         1.266                   1.266  101423.780         138597.381                   138597.381    Fix price    Fix price
+                                        Orasure Technologies Inc.   1581202.50            EXW              0.046                           0.138                    0.005         0.982        0.999         0.974                   0.974    1875.000           6122.524                     6122.524    Preferred    Preferred
+                                    BIO-RAD LABORATORIES (FRANCE)   1493378.50            EXW              0.000                           0.138                    0.111         0.857        1.000         1.005                   1.005       0.000          47416.158                    47416.158 Fix delivery Fix delivery
+                                               MICRO LABS LIMITED   1457654.62            EXW              0.000                           0.135                    0.002         1.000        0.862         0.875                   0.875       0.000          26153.928                    26153.928    Preferred    Preferred
+                                                  PHARMACY DIRECT    873335.66            DDP              1.000                           0.001                      NaN         1.000        2.476         2.331                   2.331  495595.175         475788.859                   475816.804    Fix price    Fix price
+                                          JSI R&T INSTITUTE, INC.    250689.59            DDP              1.000                           0.002                      NaN         0.974        1.288         1.272                   1.280   43790.600          42042.219                    42929.531    Fix price    Fix price
+
 Summary
- lines                                      10324
-total_spend_usd                    1627584457.29
-years                                  2006-2015
-direct_spend_usd                    542212022.34
-direct_vendors                                72
-top5_vendor_share_of_direct              0.72636
-benchmarked_spend_usd              1602303519.99
-benchmarked_share_of_spend              0.984467
-excess_vs_item_median_usd            35227878.79
-excess_vs_item_median_pct               0.021986
-excess_same_terms_usd                24310726.59
-excess_same_terms_pct                   0.015172
-scorecard_vendors                             24
-scorecard_share_of_direct_spend         0.984223
-top3_vendors_share_of_direct            0.574131
-top3_vendors_on_time_min                0.859281
-top3_vendors_on_time_max                0.993691
-direct_on_time_rate                     0.947358
-warehouse_on_time_rate                   0.82846
+ lines                                                       10324
+total_spend_usd                                     1627584457.29
+years                                                   2006-2015
+direct_spend_usd                                     542212022.34
+direct_vendors                                                 72
+top5_vendor_share_of_direct                               0.72636
+benchmarked_spend_usd                               1602303519.99
+benchmarked_share_of_spend                               0.984467
+excess_vs_item_median_usd                             35227878.79
+excess_vs_item_median_pct                                0.021986
+excess_same_terms_usd                                 24310726.59
+excess_same_terms_pct                                    0.015172
+scorecard_vendors                                              24
+scorecard_share_of_direct_spend                          0.984223
+top3_vendors_share_of_direct                             0.574131
+top3_vendors_on_time_min                                 0.859281
+top3_vendors_on_time_max                                 0.993691
+direct_on_time_rate                                      0.947358
+warehouse_on_time_rate                                    0.82846
+freight_usd                                       70171152.494141
+insurance_usd                                      2450695.914891
+freight_insurance_pct_of_goods                           0.044619
+freight_estimated_share                                  0.019286
+excess_landed_usd                                 37954339.757382
+excess_landed_pct                                        0.022692
+excess_landed_seller_terms_no_freight_usd         37375927.409726
+scorecard_vendors_changing_tier_on_landed_cost                  0
+fix_price_excess_landed_usd                       11096280.292676
 
 Outputs written to outputs and charts

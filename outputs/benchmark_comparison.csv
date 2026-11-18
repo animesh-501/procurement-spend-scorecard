@@ -1,0 +1,5 @@
+benchmark,excess_usd,spend_compared,excess_pct
+"Item median price, same year",35227878.79000001,1602303519.99,0.02198577132890519
+"Item median price, same year and same delivery terms",24310726.59000001,1602303519.99,0.015172360471474054
+"Item median landed cost, same year",37954339.75738166,1672603233.9712512,0.022691777097229995
+"Item median landed cost, same year (no freight on seller-paid terms)",37375927.40972588,1669033828.2629986,0.022393750669885377

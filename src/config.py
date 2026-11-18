@@ -31,4 +31,5 @@ COLUMNS = {
     "Pack Price": "pack_price",
     "Weight (Kilograms)": "weight_raw",
     "Freight Cost (USD)": "freight_raw",
+    "Line Item Insurance (USD)": "insurance_raw",
 }
