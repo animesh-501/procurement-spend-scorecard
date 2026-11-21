@@ -1,10 +1,10 @@
 # Procurement Spend Analysis & Supplier Scorecard
 
-**Where is money leaking, and which suppliers need attention?** This project analyzes $1.63B of purchases (10,324 purchase lines, 72 vendors, 2006–2015). It benchmarks every price against what the same item cost from other purchases, and scores each major supplier on price and delivery.
+**Where is money leaking, and which suppliers need attention?** This project analyzes $1.63B of purchases (10,324 purchase lines, 72 vendors, 2006–2015). It benchmarks every price against what the same item cost from other purchases, and scores each major supplier on price and delivery. A second part builds a [Plan for Every Part](pfep/README.md) with MRP planning from the same lines.
 
 ![Project summary chart](assets/social-preview.png)
 
-`SQL (DuckDB)` `Python` `pandas` `matplotlib`
+`SQL (DuckDB)` `Python` `pandas` `SciPy` `matplotlib`
 
 ---
 
@@ -17,6 +17,7 @@
 | **Delivery risk** | The 2 largest suppliers (44% of direct spend) delivered only **86–87%** of lines on time |
 | **Concentration** | Top 5 vendors = **73%** of direct spend |
 | **Benchmark supplier** | Mylan: **11% below** median price *and* 99.4% on time, on $72M of spend |
+| **Planning (PFEP)** | 33 items carry 98% of spend and need stock. In a replay of the following year, planning on booked country orders shipped **99%** of demand from stock, against 69–78% with fixed safety stock ([details](#plan-for-every-part)) |
 
 ![Supplier scorecard](charts/03_supplier_scorecard.png)
 
@@ -105,6 +106,19 @@ Air carries 59% of lines, and its freight costs 8.5% of goods value versus 3.2�
 
 ---
 
+## Plan for Every Part
+
+The spend analysis looks back at what was paid. [`pfep/`](pfep/README.md) uses the same purchase lines to plan forward. Every item gets a row with its supplier, measured lead time, usage, pack size, weight, stock rule and order-up-to level ([`pfep/outputs/pfep.csv`](pfep/outputs/pfep.csv)). The policies are set on Sep 2012 to Aug 2014 and replayed on the next 12 months of actual demand.
+
+- **Lead time** from PO to delivery has a median of 109 days and a typical spread of ±68 days. Counting that spread adds 42% to safety stock ($66M to $94M).
+- **Fixed safety stock reached 69–78% fill.** One item doubled and was 42% of test-year demand value; without it the lead-time-aware methods reach about 95%.
+- **Most demand is booked well ahead.** Quotes go to countries a median of 184 days before delivery, so 94% of demand 3 months out is already known.
+- **MRP on booked orders reached 99% fill** on $111M of average stock. Re-planning monthly on a 6-month average reached 92% on $132M. Booked quantities are final delivered quantities, so 99% is an upper bound.
+
+![Service vs stock](pfep/charts/02_service_vs_stock.png)
+
+---
+
 ## Definitions & limits
 
 - **Spend** = line item value (goods only, excluding freight and insurance). **Landed cost** = goods + freight + insurance.
@@ -119,7 +133,8 @@ Air carries 59% of lines, and its freight costs 8.5% of goods value versus 3.2�
 
 ```bash
 pip install -r requirements.txt
-python run_all.py
+python run_all.py          # spend analysis and supplier scorecard
+python pfep/run_all.py     # Plan for Every Part and MRP replay
 ```
 
 The source file is included in `data/raw/` (public US government data, [source](data/README.md)). A full run takes a few seconds; console output is in [`outputs/run_log.txt`](outputs/run_log.txt).
@@ -141,4 +156,5 @@ outputs/
   summary.csv  supplier_scorecard.csv  scorecard_tiers.csv  item_opportunity.csv
   vendor_pareto.csv  spend_by_year.csv  freight_by_mode.csv  price_variance_by_line.csv
   landed_cost_by_vendor.csv  benchmark_comparison.csv  same_terms_gap.csv
+pfep/                        Plan for Every Part and MRP (own SQL, src, outputs, charts; see pfep/README.md)
 ```

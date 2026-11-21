@@ -1,0 +1,139 @@
+Data quality checks
+   {'lines': 10324, 'items': 184}
+   {'direct_lines_with_po_date': 4592, 'negative_lead_time_dropped': 5.0}
+   {'lines_without_pq_date': 2681.0, 'lines_without_pack_size': 0.0}
+
+Fit window 2012-09 to 2014-08, test year 2014-09 to 2015-08
+
+Stock decision
+                                     items     fit_spend  share_of_fit_spend
+stock_decision                                                             
+Buy to order                           72  1.108607e+07               0.022
+Inactive (no demand in fit window)     79  0.000000e+00               0.000
+Stock: monthly review                  33  4.886133e+08               0.978
+
+Lead-time source for stock items
+ lt_source
+item           28
+main vendor     5
+
+Top 12 stock items: demand, lead time, safety stock (packs)
+                                                                                  item abc_class  fit_monthly_mean  fit_demand_cv  lt_p50_days  lt_mean_days  lt_sd_days  lt_p90_days  lt_obs  ss_demand_only  ss_demand_and_lead_time  ss_empirical
+   Efavirenz/Lamivudine/Tenofovir Disoproxil Fumarate 600/300/300mg, tablets, 30 Tabs         A         440160.00           0.89        141.5        144.53       57.00        200.5      58      1548940.63               2066584.03    2206261.59
+                     Lamivudine/Nevirapine/Zidovudine 150/200/300mg, tablets, 60 Tabs         A         468822.38           0.77        119.0        118.46       53.92        167.9      78      1311240.11               1891899.19    2031864.44
+                                       HIV 1/2, Determine Complete HIV Kit, 100 Tests         A          28820.12           0.62         88.0         99.41       56.90        155.0     431        60521.50                108338.98     106230.67
+Efavirenz/Emtricitabine/Tenofovir Disoproxil Fumarate 600/200/300mg, tablets, 30 Tabs         A         156829.08           1.07         69.0         91.91       45.50        151.0      11       553713.00                663088.02     727653.02
+                                    Lamivudine/Zidovudine 150/300mg, tablets, 60 Tabs         A         176057.54           0.79        124.0        113.87       68.53        181.8      83       499034.65                825398.10     853242.37
+                 Lamivudine/Tenofovir Disoproxil Fumarate 300/300mg, tablets, 30 Tabs         A         206829.12           1.08         62.5         95.65       72.24        211.8      40       743212.49               1114971.08    1347110.57
+                                      Lopinavir/Ritonavir 200/50mg, tablets, 120 Tabs         A          33941.88           1.06        102.0        116.30       89.72        198.2      27       129206.85                211723.04     239477.11
+                                                   Nevirapine 200mg, tablets, 60 Tabs         A         298559.96           0.87         88.0        116.71       87.78        258.6     133       942485.99               1710378.70    2046980.89
+                                                    Efavirenz 600mg, tablets, 30 Tabs         B         181703.71           0.94        117.5        124.74       78.95        229.0     192       632268.12               1004679.71    1133454.81
+                             Lopinavir/Ritonavir 200/50mg [Aluvia], tablets, 120 Tabs         B          21500.67           1.59         69.5         84.24       55.71        161.9     122       108656.21                126527.56     151106.98
+              Emtricitabine/Tenofovir Disoproxil Fumarate 200/300mg, tablets, 30 Tabs         B          61281.29           1.47         18.0         40.05       52.01        106.3      20       222284.38                279559.56     336823.09
+            Lamivudine/Nevirapine/Zidovudine 30/50/60mg, dispersible tablets, 60 Tabs         B          94940.96           1.20        119.0        126.65       56.90        179.2      17       427755.44                513660.33     572747.66
+
+Safety stock value by method ($)
+ demand_only              66478916.0
+demand_and_lead_time     94217271.0
+empirical               103158751.0
+
+Replay of the test year (500 runs per item, lead times drawn from observed history)
+               method                      scope  items   demand_usd   filled_usd  safety_stock_usd  avg_stock_usd  median_item_fill_rate  in_stock_months  items_below_90pct_fill  fill_rate_value_weighted  months_of_supply
+         demand_only         All 33 stock items     33 2.770035e+08 1.903795e+08      6.647892e+07   6.105966e+07                  0.991            0.869                       9                     0.687             2.645
+demand_and_lead_time         All 33 stock items     33 2.770035e+08 2.117123e+08      9.421727e+07   8.505069e+07                  0.999            0.896                       7                     0.764             3.684
+           empirical         All 33 stock items     33 2.770035e+08 2.154622e+08      1.031588e+08   9.299403e+07                  0.999            0.907                       5                     0.778             4.029
+          replan_12m         All 33 stock items     33 2.770035e+08 2.390183e+08               NaN   1.070174e+08                  0.997            0.917                       7                     0.863             4.636
+           replan_6m         All 33 stock items     33 2.770035e+08 2.538619e+08               NaN   1.317409e+08                  0.993            0.939                       7                     0.916             5.707
+          mrp_booked         All 33 stock items     33 2.770035e+08 2.739102e+08               NaN   1.106996e+08                  0.998            0.982                       1                     0.989             4.796
+         demand_only Excluding the largest item     32 1.617873e+08 1.420937e+08      4.920823e+07   5.466402e+07                  0.993            0.883                       8                     0.878             4.055
+demand_and_lead_time Excluding the largest item     32 1.617873e+08 1.528925e+08      7.117486e+07   7.554836e+07                  0.999            0.907                       6                     0.945             5.604
+           empirical Excluding the largest item     32 1.617873e+08 1.544973e+08      7.855893e+07   8.265653e+07                  1.000            0.919                       4                     0.955             6.131
+          replan_12m Excluding the largest item     32 1.617873e+08 1.523164e+08               NaN   8.938197e+07                  0.997            0.923                       6                     0.941             6.630
+           replan_6m Excluding the largest item     32 1.617873e+08 1.549199e+08               NaN   1.026844e+08                  0.994            0.943                       6                     0.958             7.616
+          mrp_booked Excluding the largest item     32 1.617873e+08 1.600889e+08               NaN   8.206896e+07                  0.998            0.982                       1                     0.990             6.087
+
+Largest item: Efavirenz/Lamivudine/Tenofovir Disoproxil Fumarate 600/300/300mg, tablets, 30 Tabs = 42% of test-year demand value
+
+Fill rate by item, largest items
+ method                                                                                 demand_only  demand_and_lead_time  empirical  replan_12m  replan_6m  mrp_booked
+item                                                                                                                                                                  
+Efavirenz/Lamivudine/Tenofovir Disoproxil Fumarate 600/300/300mg, tablets, 30 Tabs           0.419                 0.511      0.529       0.753      0.859       0.988
+Lamivudine/Nevirapine/Zidovudine 150/200/300mg, tablets, 60 Tabs                             0.906                 0.983      0.985       0.996      0.993       0.999
+HIV 1/2, Determine Complete HIV Kit, 100 Tests                                               0.985                 0.999      0.999       0.997      0.991       1.000
+Efavirenz/Emtricitabine/Tenofovir Disoproxil Fumarate 600/200/300mg, tablets, 30 Tabs        1.000                 1.000      1.000       1.000      1.000       1.000
+Lamivudine/Zidovudine 150/300mg, tablets, 60 Tabs                                            0.749                 0.921      0.930       0.815      0.916       0.971
+Lamivudine/Tenofovir Disoproxil Fumarate 300/300mg, tablets, 30 Tabs                         0.924                 0.994      0.998       0.917      0.821       0.995
+Lopinavir/Ritonavir 200/50mg, tablets, 120 Tabs                                              1.000                 1.000      1.000       1.000      1.000       1.000
+Nevirapine 200mg, tablets, 60 Tabs                                                           0.996                 1.000      1.000       0.999      0.993       1.000
+Efavirenz 600mg, tablets, 30 Tabs                                                            1.000                 1.000      1.000       1.000      0.999       1.000
+Lopinavir/Ritonavir 200/50mg [Aluvia], tablets, 120 Tabs                                     0.803                 0.882      0.944       0.979      0.997       0.983
+Emtricitabine/Tenofovir Disoproxil Fumarate 200/300mg, tablets, 30 Tabs                      1.000                 1.000      1.000       1.000      1.000       1.000
+Lamivudine/Nevirapine/Zidovudine 30/50/60mg, dispersible tablets, 60 Tabs                    0.893                 0.940      0.965       0.974      0.995       0.996
+
+Sensitivity: replay lead times from the replay window itself
+               method  fill_rate_value_weighted  avg_stock_usd  in_stock_months
+         demand_only                     0.676   6.131944e+07            0.863
+demand_and_lead_time                     0.758   8.448483e+07            0.891
+           empirical                     0.775   9.264553e+07            0.903
+          replan_12m                     0.856   1.056878e+08            0.916
+           replan_6m                     0.910   1.323417e+08            0.935
+          mrp_booked                     0.989   1.110173e+08            0.972
+
+Share of future demand already booked at the planning date (stock items)
+  months_ahead  demand_packs  booked_packs   demand_usd   booked_usd  booked_share_packs  booked_share_usd  planning_dates
+            1      59308374      59287090 516424227.80 516296881.04               1.000             1.000              24
+            2      56584284      56017728 492430176.15 487170657.75               0.990             0.989              24
+            3      52933806      49905620 461701614.44 436144033.26               0.943             0.945              24
+            4      52124450      47760200 452760437.06 412901048.98               0.916             0.912              24
+            5      49604129      43863734 425904939.26 363229147.32               0.884             0.853              24
+            6      46452745      36454913 395059211.47 295419744.71               0.785             0.748              24
+            7      44737405      28725483 379791942.31 235729091.09               0.642             0.621              24
+            8      42511251      19365697 358536654.69 153503381.75               0.456             0.428              24
+Quote -> delivery, median days: 184; supplier lead time (PO -> delivered) median for stock items: 109
+
+MRP record at end of Aug 2014, Efavirenz/Lamivudine/Tenofovir Disoproxil Fumarate 600/300/300mg, tablets, 30 Tabs
+      month  booked_orders  forecast  gross_requirement  scheduled_receipts  net_requirement  planned_order_receipt  projected_on_hand  safety_stock planned_order_release_month release_status  actual_demand
+2014-09-01       116992.0  621109.0           621109.0            621109.0              0.0                    0.0          1915518.0     1915518.0                  2014-04-01                      116992.0
+2014-10-01       468152.0  621109.0           621109.0            621109.0             -0.0                   -0.0          1915518.0     1915518.0                  2014-05-01                      468152.0
+2014-11-01        41673.0  621109.0           621109.0            621109.0             -0.0                   -0.0          1915518.0     1915518.0                  2014-06-01                       41673.0
+2014-12-01       606533.0  621109.0           621109.0            621109.0             -0.0                   -0.0          1915518.0     1915518.0                  2014-07-01                      606533.0
+2015-01-01       224243.0  621109.0           621109.0            621109.0             -0.0                   -0.0          1915518.0     1915518.0                  2014-08-01                      672243.0
+2015-02-01      1024814.0  621109.0          1024814.0                 0.0        1024814.0              1024814.0          1915518.0     1915518.0                  2014-09-01        Release      1036535.0
+2015-03-01      1583554.0  621109.0          1583554.0                 0.0        1583554.0              1583554.0          1915518.0     1915518.0                  2014-10-01        Release      2083889.0
+2015-04-01       948134.0  621109.0           948134.0                 0.0         948134.0               948134.0          1915518.0     1915518.0                  2014-11-01        Release      1511811.0
+2015-05-01       598197.0  621109.0           621109.0                 0.0         621109.0               621109.0          1915518.0     1915518.0                  2014-12-01        Release      1599676.0
+
+Summary
+ lines                                      1.032400e+04
+items                                      1.840000e+02
+stock_items                                3.300000e+01
+stock_items_share_of_fit_spend             9.778145e-01
+buy_to_order_items                         7.200000e+01
+inactive_items                             7.900000e+01
+stock_items_lead_time_median_days          1.090000e+02
+stock_items_lead_time_cv_median            6.041831e-01
+safety_stock_usd_demand_only               6.647892e+07
+safety_stock_usd_demand_and_lead_time      9.421727e+07
+safety_stock_usd_empirical                 1.031588e+08
+lead_time_variability_adds_pct             4.172504e-01
+largest_item_share_of_test_demand_value    4.159379e-01
+largest_item_test_vs_fit_demand            1.956352e+00
+quote_to_delivery_median_days              1.840000e+02
+booked_share_1_month_ahead                 9.997534e-01
+booked_share_3_months_ahead                9.446448e-01
+booked_share_5_months_ahead                8.528409e-01
+booked_share_8_months_ahead                4.281386e-01
+fill_rate_demand_only                      6.872818e-01
+avg_stock_usd_demand_only                  6.105966e+07
+fill_rate_demand_and_lead_time             7.642946e-01
+avg_stock_usd_demand_and_lead_time         8.505069e+07
+fill_rate_empirical                        7.778321e-01
+avg_stock_usd_empirical                    9.299403e+07
+fill_rate_replan_12m                       8.628711e-01
+avg_stock_usd_replan_12m                   1.070174e+08
+fill_rate_replan_6m                        9.164573e-01
+avg_stock_usd_replan_6m                    1.317409e+08
+fill_rate_mrp_booked                       9.888331e-01
+avg_stock_usd_mrp_booked                   1.106996e+08
+
+Outputs written to outputs and charts
